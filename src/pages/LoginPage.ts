@@ -38,9 +38,16 @@ export class LoginPage {
     }
 
     // get error message
-
+    async getErrorMessage(){
+        const errorMesaage = await this.driver.findElement(LOGIN_LOCATORS.selectors.errorMessage);
+        return errorMesaage;
+    }    
 
     // close error message
+    async closeErrBanner(){
+        const errMsgButton = (await this.getErrorMessage()).findElement(LOGIN_LOCATORS.selectors.errMsgButton);
+        await errMsgButton.click();
 
+    }
 
 }

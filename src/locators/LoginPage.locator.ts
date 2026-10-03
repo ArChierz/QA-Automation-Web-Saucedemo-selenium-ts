@@ -9,5 +9,6 @@ export const LOGIN_LOCATORS = {
         loginButton: By.xpath("//input[@id='login-button']") ,
         errorMessage: By.xpath("//h3[@data-test='error']") ,
         loginSuccessMessage: By.xpath("//span[@data-test='title']") ,
+        errMsgButton: By.xpath("//button[@data-test='error-button']")
     }
 };
