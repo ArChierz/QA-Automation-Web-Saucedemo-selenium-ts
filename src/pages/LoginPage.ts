@@ -1,6 +1,6 @@
 import { until, WebDriver } from "selenium-webdriver";
 import { LOGIN_LOCATORS } from "../locators/LoginPage.locator.js";
-import { log } from "node:console";
+import { config } from "../config/config.js";
 
 export class LoginPage {
 
@@ -38,16 +38,16 @@ export class LoginPage {
     }
 
     // get error message
-    async getErrorMessage(){
-        const errorMesaage = await this.driver.findElement(LOGIN_LOCATORS.selectors.errorMessage);
-        return errorMesaage;
+    async getErrorBanner(){
+        // use explicit wait for waiting in condition of 'error message banner' to appear
+        const errMsg = await this.driver.wait(until.elementLocated(LOGIN_LOCATORS.selectors.errorMessage), config.timeout);
+        return errMsg;
     }    
 
     // close error message
     async closeErrBanner(){
-        const errMsgButton = (await this.getErrorMessage()).findElement(LOGIN_LOCATORS.selectors.errMsgButton);
+        const errMsgButton = (await this.getErrorBanner()).findElement(LOGIN_LOCATORS.selectors.errMsgButton);
         await errMsgButton.click();
-
     }
 
 }
