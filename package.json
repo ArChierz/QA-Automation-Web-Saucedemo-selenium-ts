@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "test-report": "mocha --reporter mochawesome",
+    "test:chrome": "cross-env BROWSER=chrome HEADLESS=false mocha",
+    "test:firefox": "cross-env BROWSER=firefox HEADLESS=false mocha",
+    "test:chrome-report": "cross-env BROWSER=chrome mocha --reporter mochawesome",
+    "test:firefox-report": "cross-env BROWSER=firefox mocha --reporter mochawesome"
   },
   "repository": {
     "type": "git",
@@ -25,6 +30,7 @@
     "@types/node": "^26.6.3",
     "@types/selenium-webdriver": "^4.35.7",
     "chai": "^6.3.0",
+    "cross-env": "^10.1.0",
     "mocha": "^12.0.3",
     "mochawesome": "^8.1.1",
     "tsx": "^4.23.15",

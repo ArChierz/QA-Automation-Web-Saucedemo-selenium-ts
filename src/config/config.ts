@@ -5,9 +5,9 @@ export const config = {
         chrome: {
             name: 'chrome',
             options: {
-                headless: true,
+                headless: process.env.HEADLESS !== 'false',
                 args: [
-                    "--headless=new",
+                    ...(process.env.HEADLESS !== 'false' ? ["--headless=new"] : []),
                     "--window-size=1920,1080",
                     "--start-fullscreen", // use when debugging
                     // "--disable-gpu", // Required for headless on some Windows machines
@@ -20,11 +20,11 @@ export const config = {
         firefox: {
             name: "firefox",
             options: {
-                headless: true,
+                
                 args: [
-                    "--headless",
+                    ...(process.env.HEADLESS !== 'false' ? ["--headless"] : []),
                     "--window-size=1920,1080",
-                    "--kiosk" // use when debugging
+                    
                 ]
             }
         },
