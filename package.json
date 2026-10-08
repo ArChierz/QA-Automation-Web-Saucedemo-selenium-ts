@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "test:chrome": "cross-env BROWSER=chrome HEADLESS=false mocha",
+    "test:firefox": "cross-env BROWSER=firefox HEADLESS=false mocha",
+    "test:chrome-report": "cross-env BROWSER=chrome mocha --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json",
+    "test:firefox-report": "cross-env BROWSER=firefox mocha --reporter allure-mocha --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "report": "npm run allure:generate && npm run allure:open"
   },
   "repository": {
     "type": "git",
@@ -21,12 +28,15 @@
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/mochawesome": "^6.2.5",
     "@types/node": "^26.6.3",
     "@types/selenium-webdriver": "^4.35.7",
+    "allure-commandline": "^2.46.1",
+    "allure-js-commons": "^3.13.0",
+    "allure-mocha": "^3.13.0",
     "chai": "^6.3.0",
+    "cross-env": "^10.1.0",
     "mocha": "^12.0.3",
-    "mochawesome": "^8.1.1",
+    "mocha-multi-reporters": "^1.5.2",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },

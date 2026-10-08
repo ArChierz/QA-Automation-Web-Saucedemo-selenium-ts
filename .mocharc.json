@@ -1,0 +1,11 @@
+{
+  "extension": ["ts"],
+  "spec": "src/tests/**/*.ts",
+  "node-option": ["import=tsx"],
+  "timeout": 60000,
+  "recursive": true,
+  "reporter": "allure-mocha",
+  "reporterOptions": [
+    "resultsDir=allure-results"
+  ]
+}
