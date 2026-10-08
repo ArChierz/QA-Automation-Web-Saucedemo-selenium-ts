@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1483","LGN-005 - [ Login ] - Masukkan Password Valid - Klik Login","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""
+"","1482","LGN-003 - [ Login ] - Klik Login - Berhasil Login","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""
+"","1013","LGN-011 - [ Login ] - Masukkan Username dan Password Invalid - Klik Login - Klik Exit pada Error Banner","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""
+"","1113","LGN-004 - [ Login ] - Masukkan Username Valid - Klik Login","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""
+"","967","LGN-010 - [ Login ] - Kosongkan Username dan Password - Klik Login","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""
+"","1894","LGN-006 - [ Login ] - Masukkan Username dan Password Invalid - Klik Login","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""
+"","944","LGN-009 - [ Login ] - Masukkan Username dan Password Locked Out User - Klik Login","Saucedemo - Login Functionality","2026-10-08","passed","2026-10-08","","","",""

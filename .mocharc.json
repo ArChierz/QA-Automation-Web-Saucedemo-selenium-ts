@@ -3,5 +3,9 @@
   "spec": "src/tests/**/*.ts",
   "node-option": ["import=tsx"],
   "timeout": 60000,
-  "recursive": true
+  "recursive": true,
+  "reporter": "allure-mocha",
+  "reporterOptions": [
+    "resultsDir=allure-results"
+  ]
 }

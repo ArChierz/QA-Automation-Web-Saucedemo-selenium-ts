@@ -1,3 +1,5 @@
+import * as allure from "allure-js-commons";
+
 export const StepHelper = {
 
     init(context: any){
@@ -9,5 +11,7 @@ export const StepHelper = {
     add(context: any, message: string) {
         if (!context.steps) context.steps = [];
         context.steps.push(message);
+        // put into allure dashboard
+        allure.step(message, () => {});
     }
 }
