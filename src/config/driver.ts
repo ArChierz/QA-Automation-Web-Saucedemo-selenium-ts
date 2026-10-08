@@ -46,9 +46,11 @@ function getBrowserOptions(browser: string){
             options = new chrome.Options();
             options.addArguments(...config.browser.chrome.options.args);
             options.setUserPreferences({
-                "credentials_enable_service": false,
-                "profile.password_manager_enabled": false
+                'profile.password_manager_leak_detection': false,
+                'credentials_enable_service': false,
+                'profile.password_manager_enabled': false
             });
+
             
             return options;
 

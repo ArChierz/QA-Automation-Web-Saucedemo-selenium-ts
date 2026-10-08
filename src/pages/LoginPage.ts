@@ -37,17 +37,49 @@ export class LoginPage {
         await loginButton.click();
     }
 
+    // login
+    async loginAs(username: string, password: string){
+        await this.open();
+    
+        await this.enterUsername(username);
+        
+        await this.enterPassword(password);
+
+        await this.clickLogin();
+
+    }
+
     // get error message
-    async getErrorBanner(){
+    async getErrorMsgBanner(){
         // use explicit wait for waiting in condition of 'error message banner' to appear
         const errMsg = await this.driver.wait(until.elementLocated(LOGIN_LOCATORS.selectors.errorMessage), config.timeout);
-        return errMsg;
+        return errMsg.getText();
     }    
 
     // close error message
     async closeErrBanner(){
-        const errMsgButton = (await this.getErrorBanner()).findElement(LOGIN_LOCATORS.selectors.errMsgButton);
+        const errMsgButton = await this.driver.findElement(LOGIN_LOCATORS.selectors.errMsgButton);
         await errMsgButton.click();
     }
 
+    async isErrBannerClosed(){
+        try {
+            // find and wait the element to disappear
+            const banner = await this.driver.findElement(LOGIN_LOCATORS.selectors.errorMessage);
+            
+            await this.driver.wait(until.stalenessOf(banner), config.timeout);
+            return true;
+            // timeout
+        } catch (error){
+            try {
+                // check if the element still displayed
+                const banner = await this.driver.findElements(LOGIN_LOCATORS.selectors.errorMessage);
+                return banner.length === 0;
+                
+            } catch {
+                return true;
+
+            }
+        }
+    }
 }

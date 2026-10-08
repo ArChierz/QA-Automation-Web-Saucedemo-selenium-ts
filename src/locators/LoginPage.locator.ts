@@ -7,8 +7,8 @@ export const LOGIN_LOCATORS = {
         usernameInput: By.xpath("//input[@id='user-name']") ,
         passwordInput: By.xpath("//input[@id='password']") ,
         loginButton: By.xpath("//input[@id='login-button']") ,
-        errorMessage: By.xpath("//h3[@data-test='error']") ,
         loginSuccessMessage: By.xpath("//span[@data-test='title']") ,
+        errorMessage: By.xpath("//h3[@data-test='error']") ,
         errMsgButton: By.xpath("//button[@data-test='error-button']")
     }
 };

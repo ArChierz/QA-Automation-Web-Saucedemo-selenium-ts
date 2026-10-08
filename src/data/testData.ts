@@ -8,11 +8,13 @@ export const TEST_DATA = {
             viisual: "visual_user"
         },
         invalid: {
-            locked: "locked_out_user"
+            locked: "locked_out_user",
+            empty:""
         }
     },
     password: {
         valid: "secret_sauce",
-        invalid: "secrets_sauces"
+        invalid: "secrets_sauces",
+        empty: ""
     }
 }
