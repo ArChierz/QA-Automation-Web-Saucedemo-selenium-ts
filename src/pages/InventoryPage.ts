@@ -30,8 +30,35 @@ export class InventoryPage {
         }
     }
 
-
     // click filter
+
+    async clickFilter(){
+
+        // need one object
+        const dropdown = await this.driver.findElement(INVENTORY_LOCATORS.selectors.filterSelection);
+
+        await dropdown.click();
+        
+        const isFocused = await this.driver.executeScript("return document.activeElement === arguments[0];", dropdown);
+
+        return isFocused;
+    }
+
+    async getAllFilterOptionsText() {
+        // need multiple object to get each option text
+        const options = await this.driver.findElements(INVENTORY_LOCATORS.selectors.filterOptions);
+        
+        const texts: string[] = [];
+
+        // handling each separation of option to have 4 strings
+        for (const option of options){
+            const text = await option.getText()
+            texts.push(text);
+        }
+
+        return texts;
+
+    }
 
     // choose filter, use param
 

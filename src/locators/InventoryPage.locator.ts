@@ -13,11 +13,9 @@ export const INVENTORY_LOCATORS = {
         productPrice: By.xpath("//div[@data-test='inventory-item-price']"),
         addToCartButton: By.className("btn_inventory"),
         filterSelection: By.xpath("//select[@data-test='product-sort-container']"),
+        filterOptions: By.xpath("//select[@data-test='product-sort-container']//option"),
         filterActiveText: By.xpath("//span[@data-test='active-option']"),
         shoppingCart: By.xpath("//a[@data-test='shopping-cart-link']")
-
-
-
 
     }
 };
