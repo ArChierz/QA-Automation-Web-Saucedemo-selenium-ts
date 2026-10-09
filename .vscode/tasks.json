@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "test:chrome",
+			"problemMatcher": [],
+			"label": "npm: test:chrome",
+			"detail": "cross-env BROWSER=chrome HEADLESS=false mocha --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json"
+		}
+	]
+}

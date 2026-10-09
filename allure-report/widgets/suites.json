@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"d6a65ca5ed3575148747eb7b53b643e5","name":"Saucedemo - Login Functionality","statistic":{"failed":0,"broken":0,"skipped":0,"passed":7,"unknown":0,"total":7}}]}
+{"total":2,"items":[{"uid":"35b3b306c6a00d8f2649f909fa268f41","name":"Saucedemo - Inventory Product Functionality","statistic":{"failed":0,"broken":0,"skipped":18,"passed":1,"unknown":0,"total":19}},{"uid":"d6a65ca5ed3575148747eb7b53b643e5","name":"Saucedemo - Login Functionality","statistic":{"failed":0,"broken":0,"skipped":7,"passed":0,"unknown":0,"total":7}}]}

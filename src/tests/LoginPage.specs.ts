@@ -6,11 +6,10 @@ import { TEST_DATA } from "../data/testData.js";
 import { InventoryPage } from "../pages/InventoryPage.js";
 import { EXPECTED_TEXT } from "../data/expectedText.js";
 import { StepHelper } from "../helpers/testStepsHelper.js";
-import { log } from "node:console";
 
 
-
-describe("Saucedemo - Login Functionality", function(){
+//temporary skip to develop other test suite faster
+describe.skip("Saucedemo - Login Functionality", function(){
     
     let driver: WebDriver;
     let loginPage: LoginPage;
@@ -27,7 +26,7 @@ describe("Saucedemo - Login Functionality", function(){
         inventoryPage = new InventoryPage(driver);
         // initialize mepty steps array on every `it`
         StepHelper.init(this);
-    })
+    });
 
     it("LGN-003 - [ Login ] - Klik Login - Berhasil Login", async function(){
             

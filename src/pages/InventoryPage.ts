@@ -16,8 +16,72 @@ export class InventoryPage {
     // get title page
     async getTitlePage(){
         // use explicit wait for waiting the title page to render
-        let titleText = await this.driver.wait(until.elementLocated(INVENTORY_LOCATORS.selectors.titlePage), config.timeout);
+        const titleText = await this.driver.wait(until.elementLocated(INVENTORY_LOCATORS.selectors.titlePage), config.timeout);
         return titleText.getText();
     }
 
+    // determine active filter
+    async isActiveFilter(filterSet: string){
+        const activeFilter = await this.driver.findElement(INVENTORY_LOCATORS.selectors.filterActiveText).getText();
+        if (activeFilter === filterSet){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+
+    // click filter
+
+    // choose filter, use param
+
+    // determine list products card based on filter
+
+    // get list products card
+    private async getListProduct(){
+        return await this.driver.wait(until.elementsLocated(INVENTORY_LOCATORS.selectors.productCard), config.timeout);
+        
+        
+    }
+    
+    async areAllProductsCompleteLoad(){
+        const listProduct = await this.getListProduct();
+
+        for (const item of listProduct){
+            const name = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productTitle).isDisplayed();
+            const img = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productImg).isDisplayed();
+            const desc = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productDesc).isDisplayed();
+            const price = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productPrice).isDisplayed();
+            const addButton = await this.driver.findElement(INVENTORY_LOCATORS.selectors.addToCartButton).isDisplayed();
+
+            if(!name || !img || !desc || !price || !addButton){
+                return false;
+            }
+            
+        }
+        return true;
+
+        
+    }
+    // get specific product card
+
+    // click specific product name
+
+    // click specific product img
+
+    // click add to cart button
+
+    // click remove button
+
+    // clik add to cart button inside product card
+
+    // click remove button inside product card
+
+    // check shopping cart icon
+    async isShoppingCartVisible(){
+        let shoppingCart = await this.driver.findElement(INVENTORY_LOCATORS.selectors.shoppingCart).isDisplayed();
+        return shoppingCart;
+    }
+    
+    // click shopping cart icon
 }

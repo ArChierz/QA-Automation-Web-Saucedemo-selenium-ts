@@ -20,19 +20,19 @@ export class LoginPage {
     }
 
     // click the field and enter supplied username
-    async enterUsername(username: string){
+    private async enterUsername(username: string){
         const usernameInput = await this.driver.findElement(LOGIN_LOCATORS.selectors.usernameInput);
         await usernameInput.sendKeys(username);
     }
 
     // click the field and enter supplied password
-    async enterPassword(password: string){
+    private async enterPassword(password: string){
         const passwordInput = await this.driver.findElement(LOGIN_LOCATORS.selectors.passwordInput);
         await passwordInput.sendKeys(password);
     }
 
     // click the login button
-    async clickLogin(){
+    private async clickLogin(){
         const loginButton = await this.driver.findElement(LOGIN_LOCATORS.selectors.loginButton);
         await loginButton.click();
     }
