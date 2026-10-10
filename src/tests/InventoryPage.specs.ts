@@ -45,23 +45,43 @@ describe("Saucedemo - Inventory Product Functionality", function(){
         
     });
     
-    it("PRO-002 - [ All Items ] - Filter Sort - Klik Button Filter Sort", async function(){
-        StepHelper.add(this, `1. Klik button Filter Sort`);
-        const isFilterDisplayed = await inventoryPage.clickFilter();
+    it.skip("PRO-002 - [ All Items ] - Filter Sort - Klik Button Filter Sort", async function(){
 
+        StepHelper.add(this, `1. Klik button Filter Sort`);
+        await inventoryPage.clickFilter();
+
+        const isFilterDisplayed = await inventoryPage.isFilterDisplayed();
+        
         // find out if the dropdown displayed or not
         expect(isFilterDisplayed, "filter is not displayed").to.be.true;
-
+        
         const actualOptions = await inventoryPage.getAllFilterOptionsText();
-
+        
         const expectedOptions = Object.values(EXPECTED_TEXT.filters);
         // find out if the dropdown text is actually the same as expected text
         expect(actualOptions).to.deep.equal(expectedOptions);
         
     });
+    
+    it("PRO-003 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Name (A to Z) [ Default ]", async function(){
+        StepHelper.add(this, `1. Klik button Filter Sort`);
+        await inventoryPage.clickFilter();
+        
+        const isFilterDisplayed = await inventoryPage.isFilterDisplayed();
 
-    it.skip("PRO-003 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Name (A to Z) [ Default ]", async function(){
+        // find out if the dropdown displayed or not
+        expect(isFilterDisplayed, "filter is not displayed").to.be.true;
 
+
+        StepHelper.add(this, `2. Klik filter Name (A to Z) [ Default ]`);
+
+        await inventoryPage.chooseFilter(EXPECTED_TEXT.filters.az);
+
+        const isActiveFilter = await inventoryPage.isActiveFilter(EXPECTED_TEXT.filters.az);
+        expect(isActiveFilter).to.be.true;
+
+
+        
     });
 
     it.skip("PRO-004 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Name (Z to A)", async function(){

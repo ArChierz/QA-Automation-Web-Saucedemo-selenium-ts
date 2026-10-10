@@ -30,15 +30,37 @@ export class InventoryPage {
         }
     }
 
+
+    private async initDropdown(){
+
+        const dropdown = await this.driver.findElement(INVENTORY_LOCATORS.selectors.filterSelection);
+
+        return dropdown;
+    }
+
+    private async initOptions(){
+        const options = await this.driver.findElements(INVENTORY_LOCATORS.selectors.filterOptions);
+
+        return options;
+    }
+
     // click filter
 
     async clickFilter(){
 
+        const dropdown = await this.initDropdown();
+        
         // need one object
-        const dropdown = await this.driver.findElement(INVENTORY_LOCATORS.selectors.filterSelection);
-
+        
         await dropdown.click();
         
+    }
+    
+    async isFilterDisplayed(){
+        
+        const dropdown = await this.initDropdown();
+
+
         const isFocused = await this.driver.executeScript("return document.activeElement === arguments[0];", dropdown);
 
         return isFocused;
@@ -46,23 +68,38 @@ export class InventoryPage {
 
     async getAllFilterOptionsText() {
         // need multiple object to get each option text
-        const options = await this.driver.findElements(INVENTORY_LOCATORS.selectors.filterOptions);
+        const options = await this.initOptions();
         
         const texts: string[] = [];
-
+        
         // handling each separation of option to have 4 strings
         for (const option of options){
             const text = await option.getText()
             texts.push(text);
         }
-
+        
         return texts;
+        
+    }
+    
+    // choose filter, use param
+    async chooseFilter(filter: string){
+        const options = await this.initOptions();
+
+        for (const option of options){
+            const text = await option.getText();
+            if( text === filter){
+                await option.click();
+            }
+        }
 
     }
 
-    // choose filter, use param
-
     // determine list products card based on filter
+
+    async getListProductFiltered(){
+        const products = await this.getListProduct();
+    }
 
     // get list products card
     private async getListProduct(){
