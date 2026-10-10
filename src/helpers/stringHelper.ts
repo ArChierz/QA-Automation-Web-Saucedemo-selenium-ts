@@ -56,7 +56,7 @@ export const stringHelper = {
             // -1 if A before B
             // 0 if match
             // 1 if A after B
-            if(prices[i].localeCompare(prices[i+1]) > 0) {
+            if(prices[i].localeCompare(prices[i+1], undefined, {numeric:true}) > 0) {
                 return false;
             }
         }
@@ -70,7 +70,7 @@ export const stringHelper = {
         prices = this.stripDollar(prices);
 
         for(let i = 0; i < prices.length - 1; i++){
-            if(prices[i].localeCompare(prices[i+1]) < 0) {
+            if(prices[i].localeCompare(prices[i+1], undefined, {numeric:true}) < 0) {
                 return false;
             }
         }
