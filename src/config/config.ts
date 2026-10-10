@@ -1,6 +1,6 @@
 export const config = {
     baseUrl: process.env.BASE_URL || 'https://www.saucedemo.com/',
-    timeout: Number(process.env.TIMEOUT) || 10000,
+    timeout: Number(process.env.TIMEOUT) || 60000,
     browser: {
         chrome: {
             name: 'chrome',

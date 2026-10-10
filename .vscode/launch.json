@@ -9,6 +9,7 @@
       "runtimeArgs": [
         "--timeout",
         "60000",
+        // "--no-timeout",
         "${file}"
       ],
       "env": {

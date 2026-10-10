@@ -74,13 +74,14 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
 
         StepHelper.add(this, `2. Klik filter Name (A to Z) [ Default ]`);
-
+        
         await inventoryPage.chooseFilter(EXPECTED_TEXT.filters.az);
-
+        
         const isActiveFilter = await inventoryPage.isActiveFilter(EXPECTED_TEXT.filters.az);
         expect(isActiveFilter).to.be.true;
 
-
+        const isProductListedByFilter = await inventoryPage.isListProductFiltered(EXPECTED_TEXT.filters.az);
+        expect(isProductListedByFilter).to.be.true;
         
     });
 

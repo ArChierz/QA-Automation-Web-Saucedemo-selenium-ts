@@ -1,6 +1,8 @@
 import { until, WebDriver } from "selenium-webdriver";
 import { INVENTORY_LOCATORS } from "../locators/InventoryPage.locator.js";
 import { config } from "../config/config.js";
+import { EXPECTED_TEXT } from "../data/expectedText.js";
+import { stringHelper } from "../helpers/stringHelper.js";
 
 export class InventoryPage {
 
@@ -22,12 +24,16 @@ export class InventoryPage {
 
     // determine active filter
     async isActiveFilter(filterSet: string){
-        const activeFilter = await this.driver.findElement(INVENTORY_LOCATORS.selectors.filterActiveText).getText();
-        if (activeFilter === filterSet){
-            return true;
-        } else{
-            return false;
-        }
+        
+        // double check active filter
+        const filter =  await this.driver.wait(until.elementLocated(INVENTORY_LOCATORS.selectors.filterActiveText), config.timeout, `active filter not found`);
+
+        await this.driver.wait(until.elementIsVisible(filter), config.timeout, `active filter not visible`);
+
+        const filterText = await filter.getText();
+
+        return filterText.trim() === filterSet;
+        
     }
 
 
@@ -84,21 +90,56 @@ export class InventoryPage {
     
     // choose filter, use param
     async chooseFilter(filter: string){
-        const options = await this.initOptions();
+        // change options to dropdown
+        const dropdown = await this.initDropdown();
 
-        for (const option of options){
-            const text = await option.getText();
-            if( text === filter){
-                await option.click();
+        // select options using select native HTML to select the exact option
+        await this.driver.executeScript((selectElement: HTMLSelectElement, targetText: string) => {
+            for (let i = 0; i < selectElement.options.length; i++){
+                if(selectElement.options[i]?.text.trim() === targetText.trim()){
+                    selectElement.selectedIndex = i;
+                    selectElement.dispatchEvent(new Event('change', {bubbles:true}));       
+                }
             }
-        }
+        }, dropdown, filter);
 
     }
 
     // determine list products card based on filter
+    // this method will get param to match what is being filtered 
+    async isListProductFiltered(filter: string){
 
-    async getListProductFiltered(){
         const products = await this.getListProduct();
+
+        const texts: string[] = [];
+        const prices: string[] = [];
+
+        for (const product of products){
+            const text = await product.findElement(INVENTORY_LOCATORS.selectors.productTitle).getText();
+            texts.push(text);
+
+            const price = await product.findElement(INVENTORY_LOCATORS.selectors.productPrice).getText();
+            prices.push(price);
+        }
+
+        //logic of handling the 4 params of filter using a helper
+        
+        switch(filter){
+            case EXPECTED_TEXT.filters.az:
+                return stringHelper.isAscending(texts);
+                
+            case EXPECTED_TEXT.filters.za:
+                return stringHelper.isDescending(texts);
+                
+            case EXPECTED_TEXT.filters.lohi:
+                return stringHelper.isLowToHigh(prices);
+                
+            case EXPECTED_TEXT.filters.hilo:
+                return stringHelper.isHighToLow(prices);
+                
+            default:
+                return;
+        }
     }
 
     // get list products card
@@ -112,11 +153,11 @@ export class InventoryPage {
         const listProduct = await this.getListProduct();
 
         for (const item of listProduct){
-            const name = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productTitle).isDisplayed();
-            const img = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productImg).isDisplayed();
-            const desc = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productDesc).isDisplayed();
-            const price = await this.driver.findElement(INVENTORY_LOCATORS.selectors.productPrice).isDisplayed();
-            const addButton = await this.driver.findElement(INVENTORY_LOCATORS.selectors.addToCartButton).isDisplayed();
+            const name = await item.findElement(INVENTORY_LOCATORS.selectors.productTitle).isDisplayed();
+            const img = await item.findElement(INVENTORY_LOCATORS.selectors.productImg).isDisplayed();
+            const desc = await item.findElement(INVENTORY_LOCATORS.selectors.productDesc).isDisplayed();
+            const price = await item.findElement(INVENTORY_LOCATORS.selectors.productPrice).isDisplayed();
+            const addButton = await item.findElement(INVENTORY_LOCATORS.selectors.addToCartButton).isDisplayed();
 
             if(!name || !img || !desc || !price || !addButton){
                 return false;
