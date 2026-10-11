@@ -1,4 +1,4 @@
-import { until, WebDriver } from "selenium-webdriver";
+import { By, until, WebDriver } from "selenium-webdriver";
 import { INVENTORY_LOCATORS } from "../locators/InventoryPage.locator.js";
 import { config } from "../config/config.js";
 import { EXPECTED_TEXT } from "../data/expectedText.js";
@@ -172,7 +172,25 @@ export class InventoryPage {
 
     // click specific product name
 
+    async clickSpecificProductName(id: string | undefined){
+        await this.driver.findElement(By.id(`item_${id}_title_link`)).click();
+
+    }
+
+    async isSpecificProductName(id: string | undefined){
+        if (!id) return false;
+
+        const url = await this.driver.getCurrentUrl();
+        return url.endsWith(id);
+        
+    }
+
+
     // click specific product img
+    async clickSpecificProductImg(id: string | undefined){
+        await this.driver.findElement(By.id(`item_${id}_img_link`)).click();
+
+    }
 
     // click add to cart button
 

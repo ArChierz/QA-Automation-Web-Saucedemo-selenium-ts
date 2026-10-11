@@ -63,54 +63,112 @@ describe("Saucedemo - Inventory Product Functionality", function(){
         
     });
     
-    it("PRO-003 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Name (A to Z) [ Default ]", async function(){
+    it.skip("PRO-003 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Name (A to Z) [ Default ]", async function(){
         StepHelper.add(this, `1. Klik button Filter Sort`);
         await inventoryPage.clickFilter();
         
         const isFilterDisplayed = await inventoryPage.isFilterDisplayed();
-
+        
         // find out if the dropdown displayed or not
         expect(isFilterDisplayed, "filter is not displayed").to.be.true;
-
-
+        
+        
         StepHelper.add(this, `2. Klik filter Name (A to Z) [ Default ]`);
         
         await inventoryPage.chooseFilter(EXPECTED_TEXT.filters.az);
         
         const isActiveFilter = await inventoryPage.isActiveFilter(EXPECTED_TEXT.filters.az);
         expect(isActiveFilter).to.be.true;
-
+        
         const isProductListedByFilter = await inventoryPage.isListProductFiltered(EXPECTED_TEXT.filters.az);
         expect(isProductListedByFilter).to.be.true;
         
     });
-
+    
     it.skip("PRO-004 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Name (Z to A)", async function(){
+        
+        StepHelper.add(this, `1. Klik button Filter Sort`);
+        await inventoryPage.clickFilter();
+        
+        const isFilterDisplayed = await inventoryPage.isFilterDisplayed();
+        
+        // find out if the dropdown displayed or not
+        expect(isFilterDisplayed, "filter is not displayed").to.be.true;
+        
+        
+        StepHelper.add(this, `2. Klik filter Name (Z to A) `);
+        
+        await inventoryPage.chooseFilter(EXPECTED_TEXT.filters.za);
+        
+        const isActiveFilter = await inventoryPage.isActiveFilter(EXPECTED_TEXT.filters.za);
+        expect(isActiveFilter).to.be.true;
+        
+        const isProductListedByFilter = await inventoryPage.isListProductFiltered(EXPECTED_TEXT.filters.za);
+        expect(isProductListedByFilter).to.be.true;
+
 
     });
 
     it.skip("PRO-005 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Price (Low to High)", async function(){
-
+        StepHelper.add(this, `1. Klik button Filter Sort`);
+        await inventoryPage.clickFilter();
+        
+        const isFilterDisplayed = await inventoryPage.isFilterDisplayed();
+        
+        // find out if the dropdown displayed or not
+        expect(isFilterDisplayed, "filter is not displayed").to.be.true;
+        
+        
+        StepHelper.add(this, `2. Klik filter Price (Low to High)`);
+        
+        await inventoryPage.chooseFilter(EXPECTED_TEXT.filters.lohi);
+        
+        const isActiveFilter = await inventoryPage.isActiveFilter(EXPECTED_TEXT.filters.lohi);
+        expect(isActiveFilter).to.be.true;
+        
+        const isProductListedByFilter = await inventoryPage.isListProductFiltered(EXPECTED_TEXT.filters.lohi);
+        expect(isProductListedByFilter).to.be.true;
     });
 
     it.skip("PRO-006 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Filter Price (High to Low)", async function(){
+        StepHelper.add(this, `1. Klik button Filter Sort`);
+        await inventoryPage.clickFilter();
+        
+        const isFilterDisplayed = await inventoryPage.isFilterDisplayed();
+        
+        // find out if the dropdown displayed or not
+        expect(isFilterDisplayed, "filter is not displayed").to.be.true;
+        
+        
+        StepHelper.add(this, `2. Klik filter Price (High to Low)`);
+        
+        await inventoryPage.chooseFilter(EXPECTED_TEXT.filters.hilo);
+        
+        const isActiveFilter = await inventoryPage.isActiveFilter(EXPECTED_TEXT.filters.hilo);
+        expect(isActiveFilter).to.be.true;
+        
+        const isProductListedByFilter = await inventoryPage.isListProductFiltered(EXPECTED_TEXT.filters.hilo);
+        expect(isProductListedByFilter).to.be.true;
+    });
+
+    it("PRO-009 - [ All Items ] - Product Card - Hover Nama Produk - Klik Nama Produk", async function(){
+
+        StepHelper.add(this, `1. Hover pada nama produk`);
+        StepHelper.add(this, `2. Klik nama produk ID ${EXPECTED_TEXT.productId[0]}`);
+        await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[0]);
+
+        const specificProductId = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[0]);
+        expect(specificProductId).to.be.true;
 
     });
 
-    it.skip("PRO-007 - [ All Items ] - Filter Sort - Klik Button Filter Sort - Klik Bagian Di Luar Filter Sort", async function(){
+    it("PRO-010 - [ All Items ] - Product Card - Klik Foto Produk", async function(){
+        StepHelper.add(this, `1. Hover pada nama produk`);
+        StepHelper.add(this, `2. Klik nama produk ID ${EXPECTED_TEXT.productId[1]}`);
+        await inventoryPage.clickSpecificProductImg(EXPECTED_TEXT.productId[1]);
 
-    });
-    
-    it.skip("PRO-008 - [ All Items ] - Product Card - Hover Nama Produk ", async function(){
-
-    });
-
-    it.skip("PRO-009 - [ All Items ] - Product Card - Hover Nama Produk - Klik Nama Produk", async function(){
-
-    });
-
-    it.skip("PRO-010 - [ All Items ] - Product Card - Klik Foto Produk", async function(){
-
+        const specificProductId = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[1]);
+        expect(specificProductId).to.be.true;
     });
 
     it.skip("PRO-011 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk", async function(){

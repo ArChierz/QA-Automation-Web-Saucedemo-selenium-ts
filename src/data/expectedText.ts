@@ -18,5 +18,7 @@ export const EXPECTED_TEXT = {
         errPassReq: "Epic sadface: Password is required",
         errInvalidCreds: "Epic sadface: Username and password do not match any user in this service",
         errLockedAcc: "Epic sadface: Sorry, this user has been locked out."
-    }
+    },
+
+    productId: ["1", "2", "3", "4", "5", "6"]
 }
