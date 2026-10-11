@@ -171,17 +171,32 @@ describe("Saucedemo - Inventory Product Functionality", function(){
         expect(specificProductId).to.be.true;
     });
     
-    it("PRO-011 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk", async function(){
+    it.skip("PRO-011 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk", async function(){
         StepHelper.add(this, `1. Klik button Add to cart ID ${EXPECTED_TEXT.productId[3]}`);
 
-        await inventoryPage.clickAddToCartButtonProductById(EXPECTED_TEXT.productId[3]);
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[3]);
 
-        const isShowRemoveButton = await inventoryPage.isRemoveButton(EXPECTED_TEXT.productId[3]);
+        const isShowRemoveButton = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[3]);
         expect(isShowRemoveButton).to.be.true;
 
     });
 
-    it.skip("PRO-012 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk - Klik Button Remove", async function(){
+    it("PRO-012 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk - Klik Button Remove", async function(){
+
+        StepHelper.add(this, `1. Klik button Add to cart ID ${EXPECTED_TEXT.productId[4]}`);
+        
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[4]);
+        
+        const isShowRemoveButton = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[4]);
+        expect(isShowRemoveButton).to.be.true;
+        
+        StepHelper.add(this, `2. Klik button Remove ID ${EXPECTED_TEXT.productId[4]}`);
+        
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[4]);
+        
+        const isShowAddButton = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[4]);
+        expect(isShowAddButton).to.be.true;
+
 
     });
 

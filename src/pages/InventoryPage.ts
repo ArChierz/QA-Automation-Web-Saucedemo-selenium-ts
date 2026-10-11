@@ -197,14 +197,14 @@ export class InventoryPage {
     
     // click add to cart button
     
-    async clickAddToCartButtonProductById(id: string | undefined){
+    async clickAddRemoveButtonProductById(id: string | undefined){
         if (!id) return false;
         
         await this.driver.findElement(By.xpath(`//a[@id="item_${id}_title_link"]/ancestor::div[@data-test="inventory-item-description"]/descendant::button`)).click();
         
     }
     
-    async isRemoveButton(id: string | undefined){
+    async isAddRemoveButton(id: string | undefined){
         if (!id) return false;
 
         // do double wait
@@ -223,12 +223,21 @@ export class InventoryPage {
             until.elementIsVisible(button)
         );
 
-        const element = await button.getAttribute('data-test');
+        const elementDataTest = await button.getAttribute('data-test');
+        const elementName = await button.getText();
 
-        return element ? element.startsWith("remove") : false;
+        if (elementName === "Remove"){
+            return elementDataTest ? elementDataTest.startsWith("remove") : false;
+            
+        } else if (elementName === "Add to cart") {
+            return elementDataTest ? elementDataTest.startsWith("add") : false;
+            
+        }
+        return false; // fallback
+
     }
 
-    
+
     // click remove button
 
     // clik add to cart button inside product card
