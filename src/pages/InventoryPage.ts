@@ -157,7 +157,7 @@ export class InventoryPage {
             const img = await item.findElement(INVENTORY_LOCATORS.selectors.productImg).isDisplayed();
             const desc = await item.findElement(INVENTORY_LOCATORS.selectors.productDesc).isDisplayed();
             const price = await item.findElement(INVENTORY_LOCATORS.selectors.productPrice).isDisplayed();
-            const addButton = await item.findElement(INVENTORY_LOCATORS.selectors.addToCartButton).isDisplayed();
+            const addButton = await item.findElement(INVENTORY_LOCATORS.selectors.addRemoveButton).isDisplayed();
 
             if(!name || !img || !desc || !price || !addButton){
                 return false;
@@ -243,10 +243,47 @@ export class InventoryPage {
 
     }
 
+    // clik add to cart and remove button inside product card
+    async clickAddRemoveButtonProductDetail(){
 
-    // click remove button
+        await this.driver.wait(
+            until.elementLocated(
+                INVENTORY_LOCATORS.selectors.addRemoveButton
+            ),
+            config.timeout, 
+            `Button is not found`
+        ).click(); 
+        
+    }
 
-    // clik add to cart button inside product card
+    // check if the button state changed
+    async isAddRemoveButtonProductDetail(){
+
+        // two conditions of wait
+        const button = this.driver.wait(
+            until.elementLocated(
+                INVENTORY_LOCATORS.selectors.addRemoveButton
+            ),
+            config.timeout,
+            `Button is not found`
+        );
+
+        await this.driver.wait(until.elementIsVisible(button));
+
+        const elementDataTest = await button.getAttribute('data-test');
+        const elementName = await button.getText();
+
+        if (elementName === "Remove"){
+            return elementDataTest ? elementDataTest.startsWith("remove") : false;
+            
+        } else if (elementName === "Add to cart") {
+            return elementDataTest ? elementDataTest.startsWith("add") : false;
+            
+        }
+        return false; // fallback
+
+    }
+
 
     // click remove button inside product card
 
