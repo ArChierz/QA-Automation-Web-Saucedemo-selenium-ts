@@ -20,5 +20,5 @@ export const EXPECTED_TEXT = {
         errLockedAcc: "Epic sadface: Sorry, this user has been locked out."
     },
 
-    productId: ["1", "2", "3", "4", "5", "6"]
+    productId: ["0", "1", "2", "3", "4", "5", "6"]
 }

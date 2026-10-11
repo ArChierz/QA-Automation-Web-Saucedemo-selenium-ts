@@ -200,7 +200,13 @@ export class InventoryPage {
     async clickAddRemoveButtonProductById(id: string | undefined){
         if (!id) return false;
         
-        await this.driver.findElement(By.xpath(`//a[@id="item_${id}_title_link"]/ancestor::div[@data-test="inventory-item-description"]/descendant::button`)).click();
+        await this.driver.wait(
+            until.elementLocated(
+                By.xpath(
+                    `//a[@id="item_${id}_title_link"]/ancestor::div[@data-test="inventory-item-description"]/descendant::button`
+                )
+            ), config.timeout, `Item ${id} not found`
+        ).click();
         
     }
     

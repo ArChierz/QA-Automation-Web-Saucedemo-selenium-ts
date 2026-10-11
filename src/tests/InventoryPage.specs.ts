@@ -181,7 +181,7 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
 
-    it("PRO-012 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk - Klik Button Remove", async function(){
+    it.skip("PRO-012 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk - Klik Button Remove", async function(){
 
         StepHelper.add(this, `1. Klik button Add to cart ID ${EXPECTED_TEXT.productId[4]}`);
         
@@ -200,11 +200,46 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
 
-    it.skip("PRO-013 - [ All Items ] - Product Card - Klik Button Add to cart pada >1 Produk", async function(){
+    it("PRO-013 - [ All Items ] - Product Card - Klik Button Add to cart pada >1 Produk", async function(){
+        StepHelper.add(this, `1. Klik button Add to cart pada >1 produk ID ${EXPECTED_TEXT.productId[4]} dan ID ${EXPECTED_TEXT.productId[5]}`);
 
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[4]);
+        
+        const isShowRemoveButton1 = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[4]);
+        expect(isShowRemoveButton1).to.be.true;
+        
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[5]);
+        
+        const isShowRemoveButton2 = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[5]);
+        expect(isShowRemoveButton2).to.be.true;
     });
 
-    it.skip("PRO-014 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk - Klik Button Remove pada >1 Produk", async function(){
+    it("PRO-014 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk - Klik Button Remove pada >1 Produk", async function(){
+
+        StepHelper.add(this, `1. Klik button Add to cart pada >1 produk ID ${EXPECTED_TEXT.productId[4]} dan ID ${EXPECTED_TEXT.productId[5]}`);
+        
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[4]);
+        
+        const isShowRemoveButton1 = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[4]);
+        expect(isShowRemoveButton1).to.be.true;
+        
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[5]);
+        
+        const isShowRemoveButton2 = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[5]);
+        expect(isShowRemoveButton2).to.be.true;
+        
+        StepHelper.add(this, `2. Klik button Remove pada >1 produk ID ${EXPECTED_TEXT.productId[4]} dan ID ${EXPECTED_TEXT.productId[5]}`);
+
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[4]);
+        
+        const isShowAddButton1 = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[4]);
+        expect(isShowAddButton1).to.be.true;
+
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[5]);
+        
+        const isShowAddButton2 = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[5]);
+        expect(isShowAddButton2).to.be.true;
+
 
     });
 
