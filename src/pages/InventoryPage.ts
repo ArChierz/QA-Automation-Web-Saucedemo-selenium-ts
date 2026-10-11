@@ -169,31 +169,66 @@ export class InventoryPage {
         
     }
     // get specific product card
-
+    
     // click specific product name
-
+    
     async clickSpecificProductName(id: string | undefined){
+        // handling for undefined value
+        if (!id) return false;
         await this.driver.findElement(By.id(`item_${id}_title_link`)).click();
-
+        
     }
-
+    
     async isSpecificProductName(id: string | undefined){
         if (!id) return false;
-
+        
         const url = await this.driver.getCurrentUrl();
         return url.endsWith(id);
         
     }
-
-
+    
+    
     // click specific product img
     async clickSpecificProductImg(id: string | undefined){
+        if (!id) return false;
         await this.driver.findElement(By.id(`item_${id}_img_link`)).click();
+        
+    }
+    
+    // click add to cart button
+    
+    async clickAddToCartButtonProductById(id: string | undefined){
+        if (!id) return false;
+        
+        await this.driver.findElement(By.xpath(`//a[@id="item_${id}_title_link"]/ancestor::div[@data-test="inventory-item-description"]/descendant::button`)).click();
+        
+    }
+    
+    async isRemoveButton(id: string | undefined){
+        if (!id) return false;
 
+        // do double wait
+        // first to wait until the button located
+        // second, wait for the button to visible
+
+        const button = await this.driver.wait(
+            until.elementLocated(
+                By.xpath(
+                `//a[@id="item_${id}_title_link"]/ancestor::div[@data-test="inventory-item-description"]/descendant::button`
+                )
+            ), config.timeout, `Button for item ${id} not found`
+        );
+
+        await this.driver.wait(
+            until.elementIsVisible(button)
+        );
+
+        const element = await button.getAttribute('data-test');
+
+        return element ? element.startsWith("remove") : false;
     }
 
-    // click add to cart button
-
+    
     // click remove button
 
     // clik add to cart button inside product card

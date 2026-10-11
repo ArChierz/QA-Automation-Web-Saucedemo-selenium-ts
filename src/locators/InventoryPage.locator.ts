@@ -15,7 +15,8 @@ export const INVENTORY_LOCATORS = {
         filterSelection: By.xpath("//select[@data-test='product-sort-container']"),
         filterOptions: By.xpath("//select[@data-test='product-sort-container']//option"),
         filterActiveText: By.xpath("//span[@data-test='active-option']"),
-        shoppingCart: By.xpath("//a[@data-test='shopping-cart-link']")
+        shoppingCart: By.xpath("//a[@data-test='shopping-cart-link']"),
+        
 
     }
 };
