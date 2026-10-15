@@ -78,6 +78,21 @@ export class ShoppingCartPage {
         }
         return false;
     }
+
+    async isRemoveButtonVisible(){
+        const removeButton = await this.driver.findElements(CART_LOCATORS.selectors.removeButton);
+
+        if(removeButton.length === 0){
+            return false; // there is no item in there
+        }
+
+        // check if it visible using try catch
+        try {
+            return await removeButton[0]?.isDisplayed();
+        } catch(error){
+            return false;
+        }       
+    }
     
 
 }

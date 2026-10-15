@@ -370,7 +370,7 @@ describe("Saucedemo - Inventory Product Functionality", function(){
         const isProductIdMatch = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[0]);
         expect(isProductIdMatch).to.be.true;
 
-        StepHelper.add(this, `1. Klik button Shopping Cart`);
+        StepHelper.add(this, `1. Klik button Back to products`);
 
         const isCartVisible = await inventoryPage.isShoppingCartVisible();
         expect(isCartVisible).to.be.true;
@@ -403,11 +403,71 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
 
-    it.skip("PRO-020 - [ All Items ] - Product Card - Detail Produk - Klik Button Back to Products ketika Sudah Tambah Produk", async function(){
+    it("PRO-020 - [ All Items ] - Product Card - Detail Produk - Klik Button Back to Products ketika Sudah Tambah Produk", async function(){
+        await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[0]);
+        
+        const isProductIdMatch = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[0]);
+        expect(isProductIdMatch).to.be.true;
 
+        await inventoryPage.clickAddRemoveButtonProductDetail();
+        
+        const isRemoveButton = await inventoryPage.isAddRemoveButtonProductDetail();
+        expect(isRemoveButton).to.be.true;
+
+        const isCartVisible = await inventoryPage.isShoppingCartVisible();
+        expect(isCartVisible).to.be.true;
+        
+        await inventoryPage.clickShoppingCart();
+        
+        const isTitleVisible = await cartPage.isTitleText(EXPECTED_TEXT.titles.cart);
+        expect(isTitleVisible).to.be.true;
+        
+        // the expected is there are items in here
+        const isCartItemAvailable = await cartPage.isCartItemExist();
+        expect(isCartItemAvailable).to.be.true;
+        
+        // the expected is there are some button continue shopping and checkout
+        
+        //continue shopping
+        const isContinueButtonVisible = await cartPage.isContinueButtonVisible();
+        expect(isContinueButtonVisible).to.be.true;
+        
+        //checkout
+        const isCheckoutButtonVisible = await cartPage.isCheckoutButtonVisible();
+        expect(isCheckoutButtonVisible).to.be.true;
+        
+        // remove button
+        const isRemoveButtonVisible = await cartPage.isRemoveButtonVisible();
+        expect(isRemoveButtonVisible).to.be.true;
+
+
+        StepHelper.add(this, `1. Klik button Back to products`);
+        
+        // click continue shopping
+        await cartPage.clickContinueButton();
+        
+        const titleText = await inventoryPage.getTitlePage();
+        expect(titleText).to.equal(EXPECTED_TEXT.titles.inventory);
     });
 
-    it.skip("PRO-021 - [ All Items ] - Product Card - Detail Produk - Klik Button Add to cart pada Produk kemudian klik Detail Produk", async function(){
+    it("PRO-021 - [ All Items ] - Product Card - Klik Button Add to cart pada Produk kemudian klik Detail Produk", async function(){
+        StepHelper.add(this, `1. Klik button Add to cart ID ${EXPECTED_TEXT.productId[2]}`);
+        
+        await inventoryPage.clickAddRemoveButtonProductById(EXPECTED_TEXT.productId[2]);
+        
+        const isShowRemoveButton = await inventoryPage.isAddRemoveButton(EXPECTED_TEXT.productId[2]);
+        expect(isShowRemoveButton).to.be.true;
+
+        StepHelper.add(this, `2. Klik produk terpilih ID ${EXPECTED_TEXT.productId[2]}`);
+
+        await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[2]);
+
+        const isProductIdMatch = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[2]);
+        expect(isProductIdMatch).to.be.true;
+
+        const isRemoveButton = await inventoryPage.isAddRemoveButtonProductDetail();
+        expect(isRemoveButton).to.be.true;
+
 
     });
 

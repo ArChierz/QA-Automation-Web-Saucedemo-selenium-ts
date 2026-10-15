@@ -7,6 +7,7 @@ export const CART_LOCATORS = {
         titleText: By.xpath("//span[@data-test='title']"),
         cartItem: By.className("cart_item_label"),
         continueButton: By.xpath("//button[@data-test='continue-shopping']"),
-        checkoutButton : By.xpath("//button[@data-test='checkout']")
+        checkoutButton : By.xpath("//button[@data-test='checkout']"),
+        removeButton: By.className("cart_button")
     }
 }
