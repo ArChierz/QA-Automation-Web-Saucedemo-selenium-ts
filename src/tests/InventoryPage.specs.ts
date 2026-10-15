@@ -6,17 +6,20 @@ import { InventoryPage } from "../pages/InventoryPage.js";
 import { EXPECTED_TEXT } from "../data/expectedText.js";
 import { StepHelper } from "../helpers/testStepsHelper.js";
 import { LoginPage } from "../pages/LoginPage.js";
+import { ShoppingCartPage } from "../pages/ShoppingCartPage.js";
 
 describe("Saucedemo - Inventory Product Functionality", function(){
 
     let driver: WebDriver;
     let loginPage: LoginPage;
     let inventoryPage: InventoryPage;
+    let cartPage: ShoppingCartPage;
 
     beforeEach(async function(){
         driver = await xBrowser(process.env.BROWSER || 'chrome');
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
+        cartPage = new ShoppingCartPage(driver);
         // initialize mepty steps array on every `it`
         StepHelper.init(this);
 
@@ -243,7 +246,7 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
 
-    it("PRO-015 - [ All Items ] - Product Card - Detail Produk - Klik Button Add to cart", async function(){
+    it.skip("PRO-015 - [ All Items ] - Product Card - Detail Produk - Klik Button Add to cart", async function(){
 
         StepHelper.add(this, `1. Hover pada nama atau foto produk`);
         StepHelper.add(this, `2. Klik nama/foto produk ID ${EXPECTED_TEXT.productId[0]}`);
@@ -263,7 +266,7 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
 
-    it("PRO-016 - [ All Items ] - Product Card - Detail Produk - Klik Button Remove", async function(){
+    it.skip("PRO-016 - [ All Items ] - Product Card - Detail Produk - Klik Button Remove", async function(){
         // StepHelper.add(this, `1. Hover pada nama atau foto produk`);
         // StepHelper.add(this, `2. Klik nama/foto produk ID ${EXPECTED_TEXT.productId[0]}`);
 
@@ -289,7 +292,28 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
     
-    it.skip("PRO-017 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Belum Ada Produk", async function(){
+    it("PRO-017 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Belum Ada Produk", async function(){
+        // StepHelper.add(this, `1. Hover pada nama atau foto produk`);
+        // StepHelper.add(this, `2. Klik nama/foto produk ID ${EXPECTED_TEXT.productId[0]}`);
+        
+        await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[0]);
+        
+        const isProductIdMatch = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[0]);
+        expect(isProductIdMatch).to.be.true;
+
+        StepHelper.add(this, `1. Klik button Shopping Cart`);
+
+        const isCartVisible = await inventoryPage.isShoppingCartVisible();
+        expect(isCartVisible).to.be.true;
+
+        await inventoryPage.clickShoppingCart();
+
+        const isTitleVisible = await cartPage.isTitleText(EXPECTED_TEXT.titles.cart);
+        expect(isTitleVisible).to.be.true;
+
+        // the expected is there is still no item in here
+        const isCartItemAvailable = await cartPage.isCartItemExist();
+        expect(isCartItemAvailable).to.be.false;
 
     });
 

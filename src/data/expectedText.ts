@@ -1,7 +1,8 @@
 export const EXPECTED_TEXT = {
     titles: {
         login: "Login",
-        inventory: "Products"
+        inventory: "Products",
+        cart: "Your Cart"
 
 
     },

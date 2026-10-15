@@ -294,4 +294,7 @@ export class InventoryPage {
     }
     
     // click shopping cart icon
+    async clickShoppingCart(){
+        await this.driver.findElement(INVENTORY_LOCATORS.selectors.shoppingCart).click();
+    }
 }
