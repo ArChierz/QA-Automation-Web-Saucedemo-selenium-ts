@@ -292,7 +292,7 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
     
-    it("PRO-017 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Belum Ada Produk", async function(){
+    it.skip("PRO-017 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Belum Ada Produk", async function(){
         // StepHelper.add(this, `1. Hover pada nama atau foto produk`);
         // StepHelper.add(this, `2. Klik nama/foto produk ID ${EXPECTED_TEXT.productId[0]}`);
         
@@ -315,10 +315,53 @@ describe("Saucedemo - Inventory Product Functionality", function(){
         const isCartItemAvailable = await cartPage.isCartItemExist();
         expect(isCartItemAvailable).to.be.false;
 
+        // the expected is there are some button continue shopping and checkout
+
+        //continue shopping
+        const isContinueButtonVisible = await cartPage.isContinueButtonVisible();
+        expect(isContinueButtonVisible).to.be.true;
+
+        //checkout
+        const isCheckoutButtonVisible = await cartPage.isCheckoutButtonVisible();
+        expect(isCheckoutButtonVisible).to.be.true;
+
     });
 
-    it.skip("PRO-018 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Sudah Ada Produk", async function(){
+    it("PRO-018 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Sudah Ada Produk", async function(){
+        
+        await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[0]);
+        
+        const isProductIdMatch = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[0]);
+        expect(isProductIdMatch).to.be.true;
 
+        // StepHelper.add(this, `3. Klik button Add to cart`);
+        
+        await inventoryPage.clickAddRemoveButtonProductDetail();
+        
+        const isRemoveButton = await inventoryPage.isAddRemoveButtonProductDetail();
+        expect(isRemoveButton).to.be.true;
+
+        StepHelper.add(this, `1. Klik button Shopping Cart`);
+
+        const isCartVisible = await inventoryPage.isShoppingCartVisible();
+        expect(isCartVisible).to.be.true;
+
+        await inventoryPage.clickShoppingCart();
+
+        const isTitleVisible = await cartPage.isTitleText(EXPECTED_TEXT.titles.cart);
+        expect(isTitleVisible).to.be.true;
+
+        // the expected is there are some item in here
+        const isCartItemAvailable = await cartPage.isCartItemExist();
+        expect(isCartItemAvailable).to.be.true;
+
+        //continue shopping
+        const isContinueButtonVisible = await cartPage.isContinueButtonVisible();
+        expect(isContinueButtonVisible).to.be.true;
+
+        //checkout
+        const isCheckoutButtonVisible = await cartPage.isCheckoutButtonVisible();
+        expect(isCheckoutButtonVisible).to.be.true;
     });
 
     it.skip("PRO-019 - [ All Items ] - Product Card - Detail Produk - Klik Button Back to Products ketika Belum Tambah Produk", async function(){

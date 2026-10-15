@@ -47,6 +47,31 @@ export class ShoppingCartPage {
 
     // get cart_item_label
 
+    // continue button
+
+    // check is continue button is there
+
+    async isContinueButtonVisible(){
+        const continueButton = await this.driver.findElement(CART_LOCATORS.selectors.continueButton).isDisplayed();
+
+        if(continueButton){
+            return true;
+        }
+        return false;
+    }
+
+
+    // checkout button
+
+    // check is continue button is there
+    async isCheckoutButtonVisible(){
+        const checkoutButton = await this.driver.findElement(CART_LOCATORS.selectors.checkoutButton).isDisplayed();
+
+        if(checkoutButton){
+            return true;
+        }
+        return false;
+    }
     
 
 }
