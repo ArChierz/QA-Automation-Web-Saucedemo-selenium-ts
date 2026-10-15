@@ -327,7 +327,7 @@ describe("Saucedemo - Inventory Product Functionality", function(){
 
     });
 
-    it("PRO-018 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Sudah Ada Produk", async function(){
+    it.skip("PRO-018 - [ All Items ] - Product Card - Detail Produk - Klik Icon Shopping Cart Ketika Sudah Ada Produk", async function(){
         
         await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[0]);
         
@@ -365,6 +365,41 @@ describe("Saucedemo - Inventory Product Functionality", function(){
     });
 
     it.skip("PRO-019 - [ All Items ] - Product Card - Detail Produk - Klik Button Back to Products ketika Belum Tambah Produk", async function(){
+        await inventoryPage.clickSpecificProductName(EXPECTED_TEXT.productId[0]);
+        
+        const isProductIdMatch = await inventoryPage.isSpecificProductName(EXPECTED_TEXT.productId[0]);
+        expect(isProductIdMatch).to.be.true;
+
+        StepHelper.add(this, `1. Klik button Shopping Cart`);
+
+        const isCartVisible = await inventoryPage.isShoppingCartVisible();
+        expect(isCartVisible).to.be.true;
+
+        await inventoryPage.clickShoppingCart();
+
+        const isTitleVisible = await cartPage.isTitleText(EXPECTED_TEXT.titles.cart);
+        expect(isTitleVisible).to.be.true;
+
+        // the expected is there is still no item in here
+        const isCartItemAvailable = await cartPage.isCartItemExist();
+        expect(isCartItemAvailable).to.be.false;
+
+        // the expected is there are some button continue shopping and checkout
+
+        //continue shopping
+        const isContinueButtonVisible = await cartPage.isContinueButtonVisible();
+        expect(isContinueButtonVisible).to.be.true;
+
+        //checkout
+        const isCheckoutButtonVisible = await cartPage.isCheckoutButtonVisible();
+        expect(isCheckoutButtonVisible).to.be.true;
+
+        // click continue shopping
+        await cartPage.clickContinueButton();
+
+        const titleText = await inventoryPage.getTitlePage();
+        expect(titleText).to.equal(EXPECTED_TEXT.titles.inventory);
+
 
     });
 

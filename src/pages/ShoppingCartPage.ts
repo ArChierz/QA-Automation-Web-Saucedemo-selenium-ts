@@ -60,6 +60,12 @@ export class ShoppingCartPage {
         return false;
     }
 
+    async clickContinueButton(){
+        
+        await this.driver.findElement(CART_LOCATORS.selectors.continueButton).click();
+
+    }
+
 
     // checkout button
 
